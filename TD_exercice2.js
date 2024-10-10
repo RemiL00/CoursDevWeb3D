@@ -4,6 +4,7 @@ let student = {
     courses : []
 
 }
-console.log(student.age);
 student.age = 21;
-console.log(student.age);
+student.grade = "A";
+student.courses.push("Math", "Physics", "Chemistry")
+console.log(student);
