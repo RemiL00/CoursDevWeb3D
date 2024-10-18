@@ -33,9 +33,13 @@ app.post("/", (req, res) => {
 
 //PUT : Modifier un utilisateur basé sur les données envoyées dans le corps(body) et le paramètre passé dans l'URL
 app.put("/", (req, res) => {
-    res.json({
-        msg: "Hello REST API, ici le PUT"
-    })
+	// récupérer toutes les données qui arrivent dans le corps de la requête (body)
+	const {
+		firstName, lastName 
+	} = req.body
+	const id = parseInt(req.params.id)
+	// trouve son index, verifier si le userIndex est positive
+	const userIndex = users.findIndex((user) => user.id === id)
 });
 
 //DELETE : Modifier un utilisateur basé sur les données envoyées dans le corps(body) et le paramètre passé dans l'URL
