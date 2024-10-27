@@ -8,6 +8,21 @@ app.get('/', (req, res) => {
     res.json(users)
 });
 
+// GET : Un seul utilisateur
+app.get('/:id', (req, res) => {
+    const id = parseInt(req.params.id)
+
+	// trouve son index, verifier si le userIndex est positive
+	const userIndex = users.findIndex((user) => user.id === id)
+
+	// utilisateur non trouvé
+	if (userIndex < 0)
+		return res.status(404).json({ msg: "utilisateur non trouvé" })
+
+	// si el est trouvé
+	res.json(users[userIndex])
+});
+
 // POST : CRÉER un nouvel utilisateur, basé sur les données passées dans le corps(body) de la requête
 app.post("/", (req, res) => {
 	// récupérer toutes les données qui arrivent dans le corps de la requête (body)
@@ -51,10 +66,21 @@ app.put("/:id", (req, res) => {
 });
 
 //DELETE : Modifier un utilisateur basé sur les données envoyées dans le corps(body) et le paramètre passé dans l'URL
-app.delete("/", (req, res) => {
-    res.json({
-        msg: "Hello REST API, ici le DELETE"
-    })
+app.delete("/:id", (req, res) => {
+    const id = parseInt(req.params.id)
+
+	// trouve son index, verifier si le userIndex est positive
+	const userIndex = users.findIndex((user) => user.id === id)
+
+	// utilisateur non trouvé
+	if (userIndex < 0)
+		return res.status(404).json({ msg: "utilisateur non trouvé" })
+
+	// si il est trouvé
+	users.splice(userIndex, 1)
+	res.json({
+		msg: "utilisateur suprimée",
+	})
 });
 
 app.listen(port, () =>{
